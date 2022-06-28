@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const uri = "mongodb+srv://user:AZERTY@cluster0.q5hux.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -59,21 +59,26 @@ client.connect( (err, client) => {
             }
 
         })
-    // app.route('/contact/:id')
-    //     .get((req, res) => {
-    //         collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
-    //             if(err) throw err
-    //
-    //             res.json(result)
-    //         })
-    //     })
-    //     .delete((req, res) => {
-    //         collection.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
-    //             if(err) throw err
-    //
-    //             res.json(result)
-    //         })
-    //     })
+    app.route('/api/articles/:id')
+        // .get((req, res) => {
+        //     collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+        //         if(err) throw err
+        //
+        //         res.json(result)
+        //     })
+        // })
+        .delete((req, res) => {
+            try{
+                collectionArticles.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                    if(err) throw err
+                    res.json(result)
+                })
+            }catch (e){
+                res.status(400);
+                res.json({error : "Erreur id en paramettre non correct"});
+            }
+
+        })
 
     //Tags
     const collectionTags = client.db("wiki").collection("tags");
@@ -99,6 +104,26 @@ client.connect( (err, client) => {
                     if (err) throw err
                     res.json(result)
                 })
+            }
+        })
+
+    app.route('/api/tags/:id')
+        // .get((req, res) => {
+        //     collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+        //         if(err) throw err
+        //
+        //         res.json(result)
+        //     })
+        // })
+        .delete((req, res) => {
+            try{
+                collectionTags.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                    if(err) throw err
+                    res.json(result)
+                })
+            }catch (e){
+                res.status(400);
+                res.json({error : "Erreur id en paramettre non correct"});
             }
 
         })
@@ -127,6 +152,26 @@ client.connect( (err, client) => {
                     if (err) throw err
                     res.json(result)
                 })
+            }
+        })
+
+    app.route('/api/categories/:id')
+        // .get((req, res) => {
+        //     collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+        //         if(err) throw err
+        //
+        //         res.json(result)
+        //     })
+        // })
+        .delete((req, res) => {
+            try{
+                collectionCategories.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                    if(err) throw err
+                    res.json(result)
+                })
+            }catch (e){
+                res.status(400);
+                res.json({error : "Erreur id en paramettre non correct"});
             }
 
         })
