@@ -41,7 +41,7 @@ client.connect( (err, client) => {
                 collectionArticles.insertOne({
                     titre : req.body.titre,
                     contenu : req.body.contenu,
-                    date_creaction : date,
+                    date_creation : date,
                     auteur : req.body.auteur,
                     image: req.body.image,
                     tags: req.body.tags,
@@ -51,7 +51,7 @@ client.connect( (err, client) => {
                             nb_version : 1,
                             titre : req.body.titre,
                             contenu : req.body.contenu,
-                            date_creaction : date,
+                            date_creation : date,
                             auteur : req.body.auteur,
                             image: req.body.image,
                             tags: req.body.tags,
@@ -67,13 +67,13 @@ client.connect( (err, client) => {
 
         })
     app.route('/api/articles/:id')
-        // .get((req, res) => {
-        //     collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
-        //         if(err) throw err
-        //
-        //         res.json(result)
-        //     })
-        // })
+        .get((req, res) => {
+            collectionArticles.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                if(err) throw err
+
+                res.json(result)
+            })
+        })
         .delete((req, res) => {
             try{
                 collectionArticles.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
@@ -115,13 +115,13 @@ client.connect( (err, client) => {
         })
 
     app.route('/api/tags/:id')
-        // .get((req, res) => {
-        //     collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
-        //         if(err) throw err
-        //
-        //         res.json(result)
-        //     })
-        // })
+        .get((req, res) => {
+            collectionTags.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                if(err) throw err
+
+                res.json(result)
+            })
+        })
         .delete((req, res) => {
             try{
                 collectionTags.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
@@ -163,13 +163,13 @@ client.connect( (err, client) => {
         })
 
     app.route('/api/categories/:id')
-        // .get((req, res) => {
-        //     collection.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
-        //         if(err) throw err
-        //
-        //         res.json(result)
-        //     })
-        // })
+        .get((req, res) => {
+            collectionCategories.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                if(err) throw err
+
+                res.json(result)
+            })
+        })
         .delete((req, res) => {
             try{
                 collectionCategories.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
@@ -181,6 +181,48 @@ client.connect( (err, client) => {
                 res.json({error : "Erreur id en paramettre non correct"});
             }
 
+        })
+        .put(function (req, res, next) {
+
+            collectionCategories.updateOne({
+                _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
+            }, {
+                $set: {
+                    libelle: req.body.libelle
+                }
+            }, function (err, resultCat) {
+                if (err) throw err;
+                //On update les catégories embarqué dans les articles
+                collectionArticles.updateMany(
+                    {"categorie._id": req.params.id},
+                    {$set : {"categorie.libelle" : req.body.libelle}}
+                    , function (err, resultArt){
+                        if (err) throw err;
+                        //On update les catégories embarqué dans l'historique des articles
+                        collectionArticles.updateMany(
+                            {"versions_article.categorie._id": req.params.id},
+                            {$set : {"versions_article.$[].categorie.libelle" : req.body.libelle}}
+                            , function (err, resultHist){
+                                if (err) throw err;
+                                res.json({
+                                    status: "200",
+                                    dataCategorie: resultCat,
+                                    dataArticle: resultArt,
+                                    dataHistorique: resultHist
+                                });
+                            })
+                    }
+                )
+
+
+
+
+                // res.json({
+                //     status: "200",
+                //     data: result
+                // });
+
+            });
         })
 })
 
