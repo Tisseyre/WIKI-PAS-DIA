@@ -179,6 +179,39 @@ client.connect( (err, client) => {
             }
 
         })
+        .put(function (req, res, next) {
+
+            collectionTags.updateOne({
+                _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
+            }, {
+                $set: {
+                    libelle: req.body.libelle
+                }
+            }, function (err, resultCat) {
+                if (err) throw err;
+                //On update les tag embarqué dans les articles
+                collectionArticles.updateMany(
+                    {"tags._id": req.params.id},
+                    {$set : {"tags.$[].libelle" : req.body.libelle}}
+                    , function (err, resultArt){
+                        if (err) throw err;
+                        //On update les tags embarqué dans l'historique des articles
+                        collectionArticles.updateMany(
+                            {"versions_article.tags._id": req.params.id},
+                            {$set : {"versions_article.$[].tags.$[].libelle" : req.body.libelle}}
+                            , function (err, resultHist){
+                                if (err) throw err;
+                                res.json({
+                                    status: "200",
+                                    dataCategorie: resultCat,
+                                    dataArticle: resultArt,
+                                    dataHistorique: resultHist
+                                });
+                            })
+                    }
+                )
+            });
+        })
 
     //Tags
     const collectionCategories = client.db("wiki").collection("categories");
