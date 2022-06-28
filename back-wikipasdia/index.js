@@ -64,7 +64,6 @@ client.connect( (err, client) => {
                     res.json(result)
                 })
             }
-
         })
     app.route('/api/articles/:id')
         .get((req, res) => {
@@ -85,6 +84,43 @@ client.connect( (err, client) => {
                 res.json({error : "Erreur id en paramettre non correct"});
             }
 
+        })
+        .put(function (req, res, next) {
+
+            collectionArticles.updateOne({
+                _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
+            }, {
+                $set: {
+                    titre : req.body.titre,
+                    contenu : req.body.contenu,
+                    date_creation : req.body.date_creation,
+                    auteur : req.body.auteur,
+                    image: req.body.image,
+                    tags: req.body.tags,
+                    categorie: req.body.categorie,
+                    nb_total_versions : req.body.nb_total_versions + 1
+                },
+                $push: {
+                    versions_article:
+                        {
+                            nb_version : req.body.nb_total_versions + 1,
+                            titre : req.body.titre,
+                            contenu : req.body.contenu,
+                            date_creation : req.body.date_creation,
+                            auteur : req.body.auteur,
+                            image: req.body.image,
+                            tags: req.body.tags,
+                            categorie: req.body.categorie
+                        }
+                }
+            }, function (err, result) {
+                if (err) throw err;
+
+                res.json({
+                    status: "200",
+                    dataCategorie: result,
+                });
+            });
         })
 
     //Tags
@@ -213,15 +249,6 @@ client.connect( (err, client) => {
                             })
                     }
                 )
-
-
-
-
-                // res.json({
-                //     status: "200",
-                //     data: result
-                // });
-
             });
         })
 })
