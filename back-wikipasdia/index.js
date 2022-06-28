@@ -3,7 +3,8 @@ const app = express()
 const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const uri = "mongodb+srv://user:AZERTY@cluster0.q5hux.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
+const moment = require('moment');
+moment.locale('fr');
 
 app.use(express.json())
 app.use(express.static(__dirname+"/public"))
@@ -33,9 +34,14 @@ client.connect( (err, client) => {
                 // if you using view enggine
                 res.json({error : "champs envoyés non valide ou manquant"});
             }else {
+                let date = "";
+                date += moment().subtract(10, 'days').calendar()
+                date += " à "
+                date += moment().format('LT');
                 collectionArticles.insertOne({
                     titre : req.body.titre,
                     contenu : req.body.contenu,
+                    date_creaction : date,
                     auteur : req.body.auteur,
                     image: req.body.image,
                     tags: req.body.tags,
@@ -45,6 +51,7 @@ client.connect( (err, client) => {
                             nb_version : 1,
                             titre : req.body.titre,
                             contenu : req.body.contenu,
+                            date_creaction : date,
                             auteur : req.body.auteur,
                             image: req.body.image,
                             tags: req.body.tags,
