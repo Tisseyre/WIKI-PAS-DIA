@@ -86,41 +86,50 @@ client.connect( (err, client) => {
 
         })
         .put(function (req, res, next) {
+            // controle des champs
+            if (req.body.titre === undefined || req.body.contenu === undefined || req.body.auteur === undefined || req.body.image === undefined ||
+                req.body.tags === undefined || req.body.categorie === undefined || req.body.versions_article === undefined || req.body.nb_total_versions === undefined ||
+                req.body.date_creation === undefined){
+                res.status(400);
+                // if you using view enggine
+                res.json({error : "champs envoyés non valide ou manquant"});
+            }else{
+                collectionArticles.updateOne({
+                    _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
+                }, {
+                    $set: {
+                        titre : req.body.titre,
+                        contenu : req.body.contenu,
+                        date_creation : req.body.date_creation,
+                        auteur : req.body.auteur,
+                        image: req.body.image,
+                        tags: req.body.tags,
+                        categorie: req.body.categorie,
+                        nb_total_versions : req.body.nb_total_versions + 1
+                    },
+                    $push: {
+                        versions_article:
+                            {
+                                nb_version : req.body.nb_total_versions + 1,
+                                titre : req.body.titre,
+                                contenu : req.body.contenu,
+                                date_creation : req.body.date_creation,
+                                auteur : req.body.auteur,
+                                image: req.body.image,
+                                tags: req.body.tags,
+                                categorie: req.body.categorie
+                            }
+                    }
+                }, function (err, result) {
+                    if (err) throw err;
 
-            collectionArticles.updateOne({
-                _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
-            }, {
-                $set: {
-                    titre : req.body.titre,
-                    contenu : req.body.contenu,
-                    date_creation : req.body.date_creation,
-                    auteur : req.body.auteur,
-                    image: req.body.image,
-                    tags: req.body.tags,
-                    categorie: req.body.categorie,
-                    nb_total_versions : req.body.nb_total_versions + 1
-                },
-                $push: {
-                    versions_article:
-                        {
-                            nb_version : req.body.nb_total_versions + 1,
-                            titre : req.body.titre,
-                            contenu : req.body.contenu,
-                            date_creation : req.body.date_creation,
-                            auteur : req.body.auteur,
-                            image: req.body.image,
-                            tags: req.body.tags,
-                            categorie: req.body.categorie
-                        }
-                }
-            }, function (err, result) {
-                if (err) throw err;
-
-                res.json({
-                    status: "200",
-                    dataCategorie: result,
+                    res.json({
+                        status: "200",
+                        dataCategorie: result,
+                    });
                 });
-            });
+            }
+
         })
 
     //Tags
