@@ -186,6 +186,41 @@ client.connect( (err, client) => {
             });
         })
 
+    //Gestion restaurer version d'un article (id = id article)
+    app.route('/api/articles/restaurerVersion/:id/:numVersion')
+        .post((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            collectionArticles.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
+                if(err) throw err
+                let versionTrouve = false;
+                result.versions_article.forEach(function (item, index){
+                    if (item.nb_version == req.params.numVersion){
+                        versionTrouve = true
+                        //faire la restauration
+                        collectionArticles.updateOne({
+                            _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
+                        }, {
+                            $set: {
+                                titre : item.titre,
+                                contenu : item.contenu,
+                                date_creation : item.date_creation,
+                                auteur : item.auteur,
+                                image: item.image,
+                                tags: item.tags,
+                                categorie: item.categorie
+                            }
+                        })
+                    }
+                })
+                if (!versionTrouve){
+                    res.status(400)
+                    res.json({version_restaurer : false, msgErr : "numVersion introuvable"})
+                }else {
+                    res.json({version_restaurer : true})
+                }
+            })
+        })
+
     //Tags
     const collectionTags = client.db("wiki").collection("tags");
 
