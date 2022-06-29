@@ -160,6 +160,23 @@ client.connect( (err, client) => {
             })
         })
 
+    //Gestion historique d'un article (id = id article)
+    app.route('/api/articles/historique/:id/:numVersion')
+        .delete((req, res) => {
+            collectionArticles.updateOne({
+                _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
+            }, {
+                $pull : {"versions_article" : { "nb_version" : parseInt(req.params.numVersion)}}
+            }, function (err, result) {
+                if (err) throw err;
+
+                res.json({
+                    status: "200",
+                    dataCategorie: result,
+                });
+            });
+        })
+
     //Tags
     const collectionTags = client.db("wiki").collection("tags");
 
