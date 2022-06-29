@@ -20,6 +20,7 @@ client.connect( (err, client) => {
     //Articles
     app.route('/api/articles')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionArticles.find({}).toArray((err, result) => {
                 if(err) throw err
                 // console.log(result);
@@ -27,6 +28,7 @@ client.connect( (err, client) => {
             })
         })
         .post((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             // controle des champs
             if (req.body.titre === undefined || req.body.contenu === undefined || req.body.auteur === undefined || req.body.image === undefined ||
                 req.body.tags === undefined || req.body.categorie === undefined || req.body.versions_article === undefined || req.body.nb_total_versions === undefined ){
@@ -67,6 +69,7 @@ client.connect( (err, client) => {
         })
     app.route('/api/articles/:id')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionArticles.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
                 if(err) throw err
 
@@ -74,6 +77,7 @@ client.connect( (err, client) => {
             })
         })
         .delete((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             try{
                 collectionArticles.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
                     if(err) throw err
@@ -86,6 +90,7 @@ client.connect( (err, client) => {
 
         })
         .put(function (req, res, next) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             // controle des champs
             if (req.body.titre === undefined || req.body.contenu === undefined || req.body.auteur === undefined || req.body.image === undefined ||
                 req.body.tags === undefined || req.body.categorie === undefined || req.body.versions_article === undefined || req.body.nb_total_versions === undefined ||
@@ -134,6 +139,7 @@ client.connect( (err, client) => {
 
     app.route('/api/articlesByCategorie/:id')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionArticles.find({"categorie._id" : req.params.id}).toArray((err, result) => {
                 if(err) throw err
                 // console.log(result);
@@ -143,6 +149,7 @@ client.connect( (err, client) => {
 
     app.route('/api/articlesByTag/:id')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionArticles.find({"tags._id" : req.params.id}).toArray((err, result) => {
                 if(err) throw err
                 // console.log(result);
@@ -153,6 +160,7 @@ client.connect( (err, client) => {
     //On ignore la case
     app.route('/api/articlesByTitre/:titre')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionArticles.find({"titre" : { $regex : req.params.titre, $options: "i" }}).toArray((err, result) => {
                 if(err) throw err
                 // console.log(result);
@@ -163,6 +171,7 @@ client.connect( (err, client) => {
     //Gestion historique d'un article (id = id article)
     app.route('/api/articles/historique/:id/:numVersion')
         .delete((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionArticles.updateOne({
                 _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
             }, {
@@ -182,6 +191,7 @@ client.connect( (err, client) => {
 
     app.route('/api/tags')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionTags.find({}).toArray((err, result) => {
                 if(err) throw err
                 // console.log(result);
@@ -189,6 +199,7 @@ client.connect( (err, client) => {
             })
         })
         .post((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             // controle des champs
             if (req.body.libelle === undefined) {
                 res.status(400);
@@ -206,6 +217,7 @@ client.connect( (err, client) => {
 
     app.route('/api/tags/:id')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionTags.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
                 if(err) throw err
 
@@ -213,6 +225,7 @@ client.connect( (err, client) => {
             })
         })
         .delete((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             try{
                 collectionTags.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
                     if(err) throw err
@@ -225,6 +238,7 @@ client.connect( (err, client) => {
 
         })
         .put(function (req, res, next) {
+            res.setHeader('Access-Control-Allow-Origin', '*');
 
             collectionTags.updateOne({
                 _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
@@ -263,6 +277,7 @@ client.connect( (err, client) => {
 
     app.route('/api/categories')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionCategories.find({}).toArray((err, result) => {
                 if(err) throw err
                 // console.log(result);
@@ -270,6 +285,7 @@ client.connect( (err, client) => {
             })
         })
         .post((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             // controle des champs
             if (req.body.libelle === undefined) {
                 res.status(400);
@@ -287,6 +303,7 @@ client.connect( (err, client) => {
 
     app.route('/api/categories/:id')
         .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionCategories.findOne({_id:new ObjectId(req.params.id)}, (err, result) => {
                 if(err) throw err
 
@@ -294,6 +311,7 @@ client.connect( (err, client) => {
             })
         })
         .delete((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
             try{
                 collectionCategories.deleteOne({_id:new ObjectId(req.params.id)}, (err, result) => {
                     if(err) throw err
@@ -306,7 +324,7 @@ client.connect( (err, client) => {
 
         })
         .put(function (req, res, next) {
-
+            res.setHeader('Access-Control-Allow-Origin', '*');
             collectionCategories.updateOne({
                 _id: new ObjectId(req.params.id) // _id n'est pas qu'une clé
             }, {
