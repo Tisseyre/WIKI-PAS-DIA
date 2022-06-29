@@ -132,6 +132,34 @@ client.connect( (err, client) => {
 
         })
 
+    app.route('/api/articlesByCategorie/:id')
+        .get((req, res) => {
+            collectionArticles.find({"categorie._id" : req.params.id}).toArray((err, result) => {
+                if(err) throw err
+                // console.log(result);
+                res.json(result)
+            })
+        })
+
+    app.route('/api/articlesByTag/:id')
+        .get((req, res) => {
+            collectionArticles.find({"tags._id" : req.params.id}).toArray((err, result) => {
+                if(err) throw err
+                // console.log(result);
+                res.json(result)
+            })
+        })
+
+    //On ignore la case
+    app.route('/api/articlesByTitre/:titre')
+        .get((req, res) => {
+            collectionArticles.find({"titre" : { $regex : req.params.titre, $options: "i" }}).toArray((err, result) => {
+                if(err) throw err
+                // console.log(result);
+                res.json(result)
+            })
+        })
+
     //Tags
     const collectionTags = client.db("wiki").collection("tags");
 
