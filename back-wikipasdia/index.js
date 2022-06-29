@@ -4,11 +4,12 @@ const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
 const uri = "mongodb+srv://user:AZERTY@cluster0.q5hux.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const moment = require('moment');
+const cors = require('cors');
 moment.locale('fr');
 
 app.use(express.json())
 app.use(express.static(__dirname+"/public"))
-
+app.use(cors())
 
 
 client.connect( (err, client) => {
