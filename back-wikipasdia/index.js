@@ -5,6 +5,7 @@ const uri = "mongodb+srv://user:AZERTY@cluster0.q5hux.mongodb.net/?retryWrites=t
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const moment = require('moment');
 const cors = require('cors');
+const e = require("express");
 moment.locale('fr');
 
 app.use(express.json())
@@ -391,6 +392,57 @@ client.connect( (err, client) => {
                     }
                 )
             });
+        })
+
+    //Utilisateurs
+    const collectionUtilisateurs = client.db("wiki").collection("utilisateurs");
+
+    app.route('/api/utilisateurs')
+        .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            collectionUtilisateurs.find({}).toArray((err, result) => {
+                if(err) throw err
+                // console.log(result);
+                res.json(result)
+            })
+        })
+        .post((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            // controle des champs
+            if (req.body.prenom === undefined || req.body.nom === undefined || req.body.email === undefined || req.body.password === undefined) {
+                res.status(400);
+                // if you using view enggine
+                res.json({error: "champs envoyés non valide ou manquant"});
+            }else{
+                collectionUtilisateurs.insertOne({
+                    prenom: req.body.prenom,
+                    nom: req.body.nom,
+                    email: req.body.email,
+                    password: req.body.password,
+                }, (err, result) => {
+                    if (err) throw err
+                    res.json(result)
+                })
+            }
+        })
+
+    app.route('/api/login')
+        .post((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            collectionUtilisateurs.findOne({email : req.body.email, password : req.body.password}, (err, result) => {
+                if(err) throw err
+                if (result == null){
+                    res.json({
+                        connexion : false,
+                        msg : "identifiant inconnu ou mot de passe incorrect"
+                    })
+                }else {
+                    res.json({
+                        connexion : true,
+                        msg : "connexion réussie"
+                    })
+                }
+            })
         })
 })
 
