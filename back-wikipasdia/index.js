@@ -26,7 +26,7 @@ client.connect( (err, client) => {
     app.route('/api/setup')
         .get((req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
-            if (setupDB(client, dbname)){
+            if (setupDB(client, dbname, ObjectId)){
                 res.json({
                     dbinit : true,
                     msg : "base de données correctement initialisé"
