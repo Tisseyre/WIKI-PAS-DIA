@@ -26,7 +26,7 @@ client.connect( (err, client) => {
     app.route('/api/setup')
         .get((req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
-            if (setupDB(client, dbname, ObjectId)){
+            if (setupDB(client, dbname)){
                 res.json({
                     dbinit : true,
                     msg : "base de données correctement initialisé"
@@ -178,7 +178,7 @@ client.connect( (err, client) => {
         .get((req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
             try{
-                collectionArticles.find({"categorie._id" : new ObjectId(req.params.id)}).toArray((err, result) => {
+                collectionArticles.find({"categorie._id" : req.params.id}).toArray((err, result) => {
                     if(err) throw err
                     // console.log(result);
                     res.json(result)
@@ -193,7 +193,7 @@ client.connect( (err, client) => {
         .get((req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
             try{
-                collectionArticles.find({"tags._id" : new ObjectId(req.params.id)}).toArray((err, result) => {
+                collectionArticles.find({"tags._id" : req.params.id}).toArray((err, result) => {
                     if(err) throw err
                     // console.log(result);
                     res.json(result)
@@ -354,13 +354,13 @@ client.connect( (err, client) => {
                     if (err) throw err;
                     //On update les tag embarqué dans les articles
                     collectionArticles.updateMany(
-                        {"tags._id": new ObjectId(req.params.id)},
+                        {"tags._id": req.params.id},
                         {$set : {"tags.$.libelle" : req.body.libelle}}
                         , function (err, resultArt){
                             if (err) throw err;
                             //On update les tags embarqué dans l'historique des articles
                             collectionArticles.updateMany(
-                                {"versions_article.tags._id": new ObjectId(req.params.id)},
+                                {"versions_article.tags._id": req.params.id},
                                 {$set : {"versions_article.$[].tags.$.libelle" : req.body.libelle}}
                                 , function (err, resultHist){
                                     if (err) throw err;
@@ -454,13 +454,13 @@ client.connect( (err, client) => {
                     if (err) throw err;
                     //On update les catégories embarqué dans les articles
                     collectionArticles.updateMany(
-                        {"categorie._id": new ObjectId(req.params.id)},
+                        {"categorie._id": req.params.id},
                         {$set : {"categorie.libelle" : req.body.libelle}}
                         , function (err, resultArt){
                             if (err) throw err;
                             //On update les catégories embarqué dans l'historique des articles
                             collectionArticles.updateMany(
-                                {"versions_article.categorie._id": new ObjectId(req.params.id)},
+                                {"versions_article.categorie._id": req.params.id},
                                 {$set : {"versions_article.$[].categorie.libelle" : req.body.libelle}}
                                 , function (err, resultHist){
                                     if (err) throw err;
