@@ -41,25 +41,25 @@ module.exports = function (client, dbname,ObjectId){
                                         libelle: "Catégorie 1",
                                     }, (err, result) => {
                                         if (err) throw err
-                                        cat1Id = new ObjectId(result.insertedId);
+                                        cat1Id = result.insertedId;
                                         let cat2Id = null;
                                         collectionCategories.insertOne({
                                             libelle: "Catégorie 2",
                                         }, (err, result) => {
                                             if (err) throw err
-                                            cat2Id = new ObjectId(result.insertedId);
+                                            cat2Id = result.insertedId;
                                             let cat3Id = null;
                                             collectionCategories.insertOne({
                                                 libelle: "Catégorie 3",
                                             }, (err, result) => {
                                                 if (err) throw err
-                                                cat3Id = new ObjectId(result.insertedId);
+                                                cat3Id = result.insertedId;
                                                 let cat4Id = null;
                                                 collectionCategories.insertOne({
                                                     libelle: "Catégorie 4",
                                                 }, (err, result) => {
                                                     if (err) throw err
-                                                    cat4Id = new ObjectId(result.insertedId);
+                                                    cat4Id = result.insertedId;
                                                     const collectionTags = client.db(dbname).collection("tags");
                                                     //Remplissage tags
                                                     let tag1Id = null;
@@ -67,19 +67,19 @@ module.exports = function (client, dbname,ObjectId){
                                                         libelle: "Tag 1",
                                                     }, (err, result) => {
                                                         if (err) throw err
-                                                        tag1Id = new ObjectId(result.insertedId);
+                                                        tag1Id = result.insertedId;
                                                         let tag2Id = null;
                                                         collectionTags.insertOne({
                                                             libelle: "Tag 2",
                                                         }, (err, result) => {
                                                             if (err) throw err
-                                                            tag2Id = new ObjectId(result.insertedId);
+                                                            tag2Id = result.insertedId;
                                                             let tag3Id = null;
                                                             collectionTags.insertOne({
                                                                 libelle: "Tag 3",
                                                             }, (err, result) => {
                                                                 if (err) throw err
-                                                                tag3Id = new ObjectId(result.insertedId);
+                                                                tag3Id = result.insertedId;
                                                                 let tag4Id = null;
                                                                 collectionTags.insertOne({
                                                                     libelle: "Tag 4",
@@ -126,15 +126,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                             image: defaultUrlImg,
                                                                             tags: [
                                                                                 {
-                                                                                    _id : tag1Id,
+                                                                                    _id : new ObjectId(tag1Id),
                                                                                     libelle : "Tag 1",
                                                                                 },
                                                                                 {
-                                                                                    _id : tag2Id,
+                                                                                    _id : new ObjectId(tag2Id),
                                                                                     libelle : "Tag 2",
                                                                                 }],
                                                                             categorie: {
-                                                                                _id : cat1Id,
+                                                                                _id : new ObjectId(cat1Id),
                                                                                 libelle : "Catégorie 1"
                                                                             },
                                                                             versions_article: [
@@ -150,15 +150,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                                     image: defaultUrlImg,
                                                                                     tags: [
                                                                                         {
-                                                                                            _id : tag1Id,
+                                                                                            _id : new ObjectId(tag1Id),
                                                                                             libelle : "Tag 1",
                                                                                         },
                                                                                         {
-                                                                                            _id : tag2Id,
+                                                                                            _id : new ObjectId(tag2Id),
                                                                                             libelle : "Tag 2",
                                                                                         }],
                                                                                     categorie: {
-                                                                                        _id : cat1Id,
+                                                                                        _id : new ObjectId(cat1Id),
                                                                                         libelle : "Catégorie 1"
                                                                                     }
                                                                                 },
@@ -174,15 +174,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                                     image: defaultUrlImg,
                                                                                     tags: [
                                                                                         {
-                                                                                            _id : tag1Id,
+                                                                                            _id : new ObjectId(tag1Id),
                                                                                             libelle : "Tag 1",
                                                                                         },
                                                                                         {
-                                                                                            _id : tag2Id,
+                                                                                            _id : new ObjectId(tag2Id),
                                                                                             libelle : "Tag 2",
                                                                                         }],
                                                                                     categorie: {
-                                                                                        _id : cat1Id,
+                                                                                        _id : new ObjectId(cat1Id),
                                                                                         libelle : "Catégorie 1"
                                                                                     }
                                                                                 }
@@ -200,15 +200,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                             image: defaultUrlImg,
                                                                             tags: [
                                                                                 {
-                                                                                    _id : tag1Id,
+                                                                                    _id : new ObjectId(tag1Id),
                                                                                     libelle : "Tag 1",
                                                                                 },
                                                                                 {
-                                                                                    _id : tag2Id,
+                                                                                    _id : new ObjectId(tag2Id),
                                                                                     libelle : "Tag 2",
                                                                                 }],
                                                                             categorie: {
-                                                                                _id : cat2Id,
+                                                                                _id : new ObjectId(cat2Id),
                                                                                 libelle : "Catégorie 2"
                                                                             },
                                                                             versions_article: [
@@ -224,15 +224,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                                     image: defaultUrlImg,
                                                                                     tags: [
                                                                                         {
-                                                                                            _id : tag1Id,
+                                                                                            _id : new ObjectId(tag1Id),
                                                                                             libelle : "Tag 1",
                                                                                         },
                                                                                         {
-                                                                                            _id : tag2Id,
+                                                                                            _id : new ObjectId(tag2Id),
                                                                                             libelle : "Tag 2",
                                                                                         }],
                                                                                     categorie: {
-                                                                                        _id : cat2Id,
+                                                                                        _id : new ObjectId(cat2Id),
                                                                                         libelle : "Catégorie 2"
                                                                                     }
                                                                                 }
@@ -250,15 +250,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                             image: defaultUrlImg,
                                                                             tags: [
                                                                                 {
-                                                                                    _id : tag1Id,
+                                                                                    _id : new ObjectId(tag1Id),
                                                                                     libelle : "Tag 1",
                                                                                 },
                                                                                 {
-                                                                                    _id : tag2Id,
+                                                                                    _id : new ObjectId(tag2Id),
                                                                                     libelle : "Tag 2",
                                                                                 }],
                                                                             categorie: {
-                                                                                _id : cat3Id,
+                                                                                _id : new ObjectId(cat3Id),
                                                                                 libelle : "Catégorie 3"
                                                                             },
                                                                             versions_article: [
@@ -274,15 +274,15 @@ module.exports = function (client, dbname,ObjectId){
                                                                                     image: defaultUrlImg,
                                                                                     tags: [
                                                                                         {
-                                                                                            _id : tag1Id,
+                                                                                            _id : new ObjectId(tag1Id),
                                                                                             libelle : "Tag 1",
                                                                                         },
                                                                                         {
-                                                                                            _id : tag2Id,
+                                                                                            _id : new ObjectId(tag2Id),
                                                                                             libelle : "Tag 2",
                                                                                         }],
                                                                                     categorie: {
-                                                                                        _id : cat3Id,
+                                                                                        _id : new ObjectId(cat3Id),
                                                                                         libelle : "Catégorie 3"
                                                                                     }
                                                                                 }

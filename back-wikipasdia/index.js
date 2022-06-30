@@ -178,7 +178,7 @@ client.connect( (err, client) => {
         .get((req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
             try{
-                collectionArticles.find({"categorie._id" : req.params.id}).toArray((err, result) => {
+                collectionArticles.find({"categorie._id" : new ObjectId(req.params.id)}).toArray((err, result) => {
                     if(err) throw err
                     // console.log(result);
                     res.json(result)
@@ -193,7 +193,7 @@ client.connect( (err, client) => {
         .get((req, res) => {
             res.setHeader('Access-Control-Allow-Origin', '*');
             try{
-                collectionArticles.find({"tags._id" : req.params.id}).toArray((err, result) => {
+                collectionArticles.find({"tags._id" : new ObjectId(req.params.id)}).toArray((err, result) => {
                     if(err) throw err
                     // console.log(result);
                     res.json(result)
