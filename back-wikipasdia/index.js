@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
-const uri = "mongodb+srv://user:AZERTY@cluster0.q5hux.mongodb.net/?retryWrites=true&w=majority";
+const dbname = "wiki2";
+const uri = "mongodb+srv://user:AZERTY@cluster0.q5hux.mongodb.net/"+dbname+"?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const moment = require('moment');
 const cors = require('cors');
-const e = require("express");
+const setupDB = require('./conf/setupDB');
 moment.locale('fr');
 
 app.use(express.json())
@@ -16,9 +17,35 @@ app.use(cors())
 client.connect( (err, client) => {
     if(err) throw err
 
+    // let db = client.db('wiki2');
+    // db.createCollection("customers", function (err, result) {
+    //     if (err) throw err;
+    //     console.log("database and Collection created!");
+    //     client.close();
+    // });
+
     console.log("connexion à mongo OK");
-    const collectionArticles = client.db("wiki").collection("articles");
+    const collectionArticles = client.db(dbname).collection("articles");
     const ObjectId = require('mongodb').ObjectId
+
+    //setup
+    app.route('/api/setup')
+        .get((req, res) => {
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            if (setupDB(client, dbname)){
+                res.json({
+                    dbinit : true,
+                    msg : "base de données correctement initialisé"
+                })
+            }else {
+                res.json({
+                    dbinit : false,
+                    msg : "erreur lors de l'initialisation de la base de données"
+                })
+            }
+        })
+
+
     //Articles
     app.route('/api/articles')
         .get((req, res) => {
@@ -39,7 +66,7 @@ client.connect( (err, client) => {
                 res.json({error : "champs envoyés non valide ou manquant"});
             }else {
                 let date = "";
-                date += moment().subtract(10, 'days').calendar()
+                date += moment().format('L');
                 date += " à "
                 date += moment().format('LT');
                 collectionArticles.insertOne({
@@ -224,7 +251,7 @@ client.connect( (err, client) => {
         })
 
     //Tags
-    const collectionTags = client.db("wiki").collection("tags");
+    const collectionTags = client.db(dbname).collection("tags");
 
     app.route('/api/tags')
         .get((req, res) => {
@@ -287,14 +314,14 @@ client.connect( (err, client) => {
                 if (err) throw err;
                 //On update les tag embarqué dans les articles
                 collectionArticles.updateMany(
-                    {"tags._id": req.params.id},
-                    {$set : {"tags.$[].libelle" : req.body.libelle}}
+                    {"tags._id": new ObjectId(req.params.id)},
+                    {$set : {"tags.$.libelle" : req.body.libelle}}
                     , function (err, resultArt){
                         if (err) throw err;
                         //On update les tags embarqué dans l'historique des articles
                         collectionArticles.updateMany(
-                            {"versions_article.tags._id": req.params.id},
-                            {$set : {"versions_article.$[].tags.$[].libelle" : req.body.libelle}}
+                            {"versions_article.tags._id": new ObjectId(req.params.id)},
+                            {$set : {"versions_article.$[].tags.$.libelle" : req.body.libelle}}
                             , function (err, resultHist){
                                 if (err) throw err;
                                 res.json({
@@ -310,7 +337,7 @@ client.connect( (err, client) => {
         })
 
     //Tags
-    const collectionCategories = client.db("wiki").collection("categories");
+    const collectionCategories = client.db(dbname).collection("categories");
 
     app.route('/api/categories')
         .get((req, res) => {
@@ -372,13 +399,13 @@ client.connect( (err, client) => {
                 if (err) throw err;
                 //On update les catégories embarqué dans les articles
                 collectionArticles.updateMany(
-                    {"categorie._id": req.params.id},
+                    {"categorie._id": new ObjectId(req.params.id)},
                     {$set : {"categorie.libelle" : req.body.libelle}}
                     , function (err, resultArt){
                         if (err) throw err;
                         //On update les catégories embarqué dans l'historique des articles
                         collectionArticles.updateMany(
-                            {"versions_article.categorie._id": req.params.id},
+                            {"versions_article.categorie._id": new ObjectId(req.params.id)},
                             {$set : {"versions_article.$[].categorie.libelle" : req.body.libelle}}
                             , function (err, resultHist){
                                 if (err) throw err;
@@ -395,7 +422,7 @@ client.connect( (err, client) => {
         })
 
     //Utilisateurs
-    const collectionUtilisateurs = client.db("wiki").collection("utilisateurs");
+    const collectionUtilisateurs = client.db(dbname).collection("utilisateurs");
 
     app.route('/api/utilisateurs')
         .get((req, res) => {
