@@ -14,7 +14,8 @@ module.exports = function (client, dbname){
 
     let db = client.db(dbname);
     //Drop and create
-    // db.collections.drop();
+    //On effaces les collections et les créer de nouveau avec remplissage des données
+    //Suppression
     db.collection("articles").drop(function(err, result) {
         db.collection("tags").drop(function(err, result) {
             db.collection("categories").drop(function(err, result) {
@@ -84,6 +85,7 @@ module.exports = function (client, dbname){
                                                                 }, (err, result) => {
                                                                     if (err) throw err
                                                                     tag4Id = result.insertedId;
+                                                                    //Remplissage utilisateurs
                                                                     const collectionUtilisateurs = client.db(dbname).collection("utilisateurs");
                                                                     collectionUtilisateurs.insertMany([
                                                                         {
