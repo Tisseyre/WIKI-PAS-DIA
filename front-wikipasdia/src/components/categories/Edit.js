@@ -13,7 +13,7 @@ export default function Edit() {
             setCategorie(response.data);
             setLibelle(response.data.libelle);
         });
-    }, []);
+    }, [params.id]);
 
     if (!categorie) return null;
 

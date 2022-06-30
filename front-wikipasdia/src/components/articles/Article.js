@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
 
-export default function Article({ item, linkTo }) {
+export default function Article({ item, linkTo, linkNav }) {
 
     const navigate = useNavigate();
 
@@ -10,7 +10,7 @@ export default function Article({ item, linkTo }) {
         axios
         .delete("http://localhost:3001/api/articles/"+item._id)
         .then((response) => {
-            navigate('/articles');
+            navigate(linkNav);
         });
     }
 

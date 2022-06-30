@@ -36,29 +36,22 @@ export default function Create() {
     const handleSubmit = function (e) {
         e.preventDefault();
 
-        /*console.log(titre.current.value);
-        console.log(contenu.current.value);
-        console.log(imgName.current.value);
-        console.log(imgURL.current.value);
-        console.log(categorie.current.value);
-        console.log(tag);*/
-
         let categ = null;
         let postTag = [];
-        categories.map((item, index) => {
-            if(item._id == categorie.current.value) {
-                categ = item;
-            }
-        })
 
-        tags.map((item, index) => {
-            tag.map((item2, index2) => {
-                if(item._id == item2) {
-                    postTag.push(item);
+        for (let i = 0; i < categories.length; i++) {
+            if(categorie.current.value === categories[i]._id) {
+                categ = categories[i];
+            }
+        }
+
+        for (let i = 0; i < tags.length; i++) {
+            for (let j = 0; j < tag.length; j++) {
+                if(tags[i]._id === tag[j]) {
+                    postTag.push(tags[i]);
                 }
-            });
-            
-        })
+            }
+        }
 
         axios
         .post("http://localhost:3001/api/articles", {

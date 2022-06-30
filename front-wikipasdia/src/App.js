@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 // Routes
@@ -8,6 +8,9 @@ import ArticleIndex from "./components/articles/Index";
 import ArticleCreate from "./components/articles/Create";
 import ArticleEdit from "./components/articles/Edit";
 import ArticleShow from "./components/articles/Show";
+import ArticleByCategorie from "./components/articles/SearchByCategorie";
+import ArticleByTag from "./components/articles/SearchByTag";
+import ArticleByTitre from "./components/articles/SearchByTitre";
 
 import TagIndex from "./components/tags/Index";
 import TagCreate from "./components/tags/Create";
@@ -26,7 +29,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
+  const [utilisateur, setUtilisateur] = useState("test utilisateur");
 
+  console.log(utilisateur);
   return (
     <div>
       <TopMenu />
@@ -41,6 +46,10 @@ function App() {
             <Route path="/articles/create" element={<ArticleCreate />} />
             <Route path="/articles/:id/edit" element={<ArticleEdit />} />
             <Route path="/articles/:id" element={<ArticleShow />} />
+            <Route path="/categorie/:id/articles" element={<ArticleByCategorie />} />
+            <Route path="/tag/:id/articles" element={<ArticleByTag />} />
+            <Route path="/articlesByTitre/:titre" element={<ArticleByTitre />} />
+
             <Route path="/tags" element={<TagIndex />} />
             <Route path="/tags/create" element={<TagCreate />} />
             <Route path="/tags/:id/edit" element={<TagEdit />} />

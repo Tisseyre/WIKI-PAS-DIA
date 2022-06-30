@@ -5,16 +5,23 @@ import axios from 'axios';
 export default function Show() {
     const params = useParams()
     const [article, setArticle] = useState(null);
+    const [isCollapsed, setIsCollapsed] = useState(true);
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/articles/"+params.id).then((response) => {
             setArticle(response.data);
         });
-    }, []);
+    }, [params.id]);
 
     if (!article) return null;
 
-    console.log(article);
+    const updateVersion = (numVersion) => {
+        axios
+        .post("http://localhost:3001/api/articles/restaurerVersion/"+params.id+"/"+numVersion)
+        .then((response) => {
+            window.location.reload();
+        });
+    }
 
     return (
         <div>
@@ -22,6 +29,33 @@ export default function Show() {
                 <div className='col-md-8'>
                     <div className='d-flex justify-content-end'>
                         <Link to={ "/articles/"+params.id+"/edit" } className='btn btn-primary'>Modifier</Link>
+                        <button className='btn btn-secondary mx-2' onClick={ () => { setIsCollapsed(!isCollapsed) } } >Changer de version</button>
+                    </div>
+                    <div className='d-flex justify-content-end'>
+                        <div className={`${isCollapsed ? 'collapse' : ''}`}>
+                            <table className='table'>
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Titre</th>
+                                        <th>Modifier</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        article.versions_article.map((item, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>{item.nb_version}</td>
+                                                    <td>{item.titre}</td>
+                                                    <td><button className='btn btn-secondary' onClick={ event => updateVersion(item.nb_version)}>Changer</button></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     
                     <h1 className='my-3'>{article.titre} - {article.categorie.libelle}</h1>
@@ -38,7 +72,7 @@ export default function Show() {
                                 <hr/>
                                 {
                                     article.tags.map((item, index) => {
-                                        let linkToURL = "/articlesByTag/"+item._id;
+                                        let linkToURL = "/tag/"+item._id+"/articles";
                                         return (
                                             <p key={index}>
                                                 <Link to={linkToURL}>{item.libelle}</Link>

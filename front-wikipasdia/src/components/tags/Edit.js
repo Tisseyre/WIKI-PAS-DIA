@@ -14,7 +14,7 @@ export default function Edit() {
             setTag(response.data);
             setLibelle(response.data.libelle);
         });
-    }, []);
+    }, [params.id]);
 
     if (!tag) return null;
 
