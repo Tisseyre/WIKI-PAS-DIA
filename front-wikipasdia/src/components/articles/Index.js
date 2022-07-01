@@ -7,6 +7,7 @@ export default function Index() {
     const [articles, setArticle] = useState(null);
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération des articles
     useEffect(() => {
         axios.get("http://localhost:3001/api/articles").then((response) => {
             setArticle(response.data);

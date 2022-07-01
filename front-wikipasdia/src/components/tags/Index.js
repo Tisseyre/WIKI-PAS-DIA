@@ -7,6 +7,7 @@ export default function Index() {
     const [tags, setTags] = useState(null);
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération des tags
     useEffect(() => {
         axios.get("http://localhost:3001/api/tags").then((response) => {
             setTags(response.data);

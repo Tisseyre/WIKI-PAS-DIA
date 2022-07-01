@@ -7,6 +7,7 @@ export default function Create() {
     const password = useRef();
     const navigate = useNavigate();
 
+    // Fonction de submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 
@@ -17,6 +18,7 @@ export default function Create() {
         })
         .then((response) => {
             if(response.data.connexion){
+                // Création de la session de l'utilisateur et de vérification qu'il y ait bien une connexion
                 sessionStorage.setItem("isConnected", response.data.connexion);
                 sessionStorage.setItem("user", JSON.stringify({
                     "nom": response.data.nom,

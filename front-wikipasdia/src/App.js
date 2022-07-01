@@ -30,7 +30,7 @@ import LeftMenu from "./components/layout/LeftMenu";
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+// Fonction retournant les menus et les différentes routes
 function App() {
   return (
     <div>

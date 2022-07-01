@@ -7,6 +7,7 @@ export default function TopMenu() {
 
   var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+  // Fonction de déconnexion
   const logout = () => {
     sessionStorage.setItem("isConnected", "false");
     navigate('/');

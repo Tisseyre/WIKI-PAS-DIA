@@ -9,6 +9,7 @@ export default function Create() {
     const password = useRef();
     const navigate = useNavigate();
 
+    // Fonction de submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 

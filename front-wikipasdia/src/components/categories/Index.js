@@ -7,6 +7,7 @@ export default function Index() {
     const [categories, setCategories] = useState(null);
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération des catégories
     useEffect(() => {
         axios.get("http://localhost:3001/api/categories").then((response) => {
             setCategories(response.data);

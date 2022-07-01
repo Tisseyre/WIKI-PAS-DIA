@@ -6,6 +6,7 @@ import { AiOutlineClose, AiFillEdit } from 'react-icons/ai';
 export default function Article({ item, linkTo }) {
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Modification des titres des articles - affichage des 15 premiers caractères
     const refacTitle = (title) => {
         let titre = title;
         if (title.length > 15) {
@@ -18,6 +19,7 @@ export default function Article({ item, linkTo }) {
         return titre;
     }
 
+    // Fonction de suppression d'un article
     const delArticle = () => {
         axios
         .delete("http://localhost:3001/api/articles/"+item._id)

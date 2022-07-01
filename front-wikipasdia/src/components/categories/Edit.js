@@ -10,10 +10,12 @@ export default function Edit() {
 
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Redirection si l'utilisateur n'est pas connecté
     if(!isConnected) {
         navigate('/login');
     }
 
+    // Récupération de la catégorie demandée
     useEffect(() => {
         axios.get("http://localhost:3001/api/categories/"+params.id).then((response) => {
             setCategorie(response.data);
@@ -23,6 +25,7 @@ export default function Edit() {
 
     if (!categorie) return null;
 
+    // Fonction de submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 

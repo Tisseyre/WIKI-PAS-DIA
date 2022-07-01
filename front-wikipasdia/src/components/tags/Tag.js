@@ -6,6 +6,7 @@ import { AiOutlineClose, AiFillEdit } from 'react-icons/ai';
 export default function Tag({ item }) {
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Modification des titres des tags - affichage des 15 premiers caractères
     const refacTitle = (title) => {
         let titre = title;
         if (title.length > 15) {
@@ -18,6 +19,7 @@ export default function Tag({ item }) {
         return titre;
     }
 
+    // Fonction de suppression d'un tag
     const delTag = () => {
         axios
         .delete("http://localhost:3001/api/tags/"+item._id)

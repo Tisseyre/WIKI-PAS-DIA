@@ -9,6 +9,7 @@ export default function SearchByCategorie() {
     const params = useParams();
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération des articles en fonction de son titre
     useEffect(() => {
         axios.get("http://localhost:3001/api/articlesByTitre/"+params.titre).then((response) => {
             setArticle(response.data);

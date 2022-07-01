@@ -6,6 +6,7 @@ export default function Create() {
     const libelle = useRef();
     const navigate = useNavigate();
 
+    // Fonction submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 

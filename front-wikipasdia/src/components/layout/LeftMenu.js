@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 export default function LeftMenu() {
   const [tags, setTags] = useState(null);
   var isConnected = (sessionStorage.getItem("isConnected") === 'true');
-
+  // Récupération des tags
   useEffect(() => {
       axios.get("http://localhost:3001/api/tags").then((response) => {
           setTags(response.data);
@@ -13,7 +13,7 @@ export default function LeftMenu() {
   }, []);
 
   if (!tags) return null;
-
+  // Fonction pour initialiser la base de données
   const setupBDD = () => {
     axios.get("http://localhost:3001/api/setup").then((response) => {
         alert(response.data.msg);
@@ -44,6 +44,7 @@ export default function LeftMenu() {
             <hr/>
             <ul>
               {
+                // Affichage des 10 premiers tags dans le menu de gauche
                   tags.map((item, index) => {
                     if(index > 9) return null;
                     let linkToURL = "/tag/"+item._id+"/articles";

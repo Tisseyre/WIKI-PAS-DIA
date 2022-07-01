@@ -10,6 +10,7 @@ export default function SearchByCategorie() {
     const params = useParams();
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération des articles en fonction de la catégorie associée
     useEffect(() => {
         axios.get("http://localhost:3001/api/articlesByCategorie/"+params.id).then((response) => {
             setArticle(response.data);

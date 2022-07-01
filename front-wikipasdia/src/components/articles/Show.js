@@ -8,6 +8,7 @@ export default function Show() {
     const [isCollapsed, setIsCollapsed] = useState(true);
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération de l'article demandée
     useEffect(() => {
         axios.get("http://localhost:3001/api/articles/"+params.id).then((response) => {
             setArticle(response.data);
@@ -16,6 +17,7 @@ export default function Show() {
 
     if (!article) return null;
 
+    // Fonction pour changer la version d'un article
     const updateVersion = (numVersion) => {
         axios
         .post("http://localhost:3001/api/articles/restaurerVersion/"+params.id+"/"+numVersion)

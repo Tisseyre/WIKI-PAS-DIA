@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 export default function Home() {
     const [categories, setCategories] = useState(null);
 
+    // Récupération des catégories
     useEffect(() => {
         axios.get("http://localhost:3001/api/categories").then((response) => {
             setCategories(response.data);
@@ -25,11 +26,6 @@ export default function Home() {
                                 <div className='w-100 my-4 p-3 shadow rounded d-flex justify-content-between'>
                                     <h3 >{item.libelle}</h3>
                                     <Link to={linkTo} className='btn btn-primary'>Voir les articles</Link>
-                                </div>
-                                
-                                
-                                <div>
-
                                 </div>
                             </div>
                         )

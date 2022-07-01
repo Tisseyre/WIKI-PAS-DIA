@@ -10,6 +10,7 @@ export default function SearchByCategorie() {
     const params = useParams();
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Récupération des articles en fonction d'un des tag associé
     useEffect(() => {
         axios.get("http://localhost:3001/api/articlesByTag/"+params.id).then((response) => {
             setArticle(response.data);

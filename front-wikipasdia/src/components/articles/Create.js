@@ -14,9 +14,12 @@ export default function Create() {
 
     const [categories, setCategories] = useState(null);
     const [tags, setTags] = useState(null);
+    // Récupération de l'utilisateur connecté comme "auteur" de l'article
     var user = sessionStorage.getItem("user");
     user = JSON.parse(user);
 
+    // Récupération des catégories
+    // Récupération des tags
     useEffect(() => {
         axios.get("http://localhost:3001/api/categories").then((response) => {
             setCategories(response.data);
@@ -29,24 +32,27 @@ export default function Create() {
     if (!categories) return null;
     if (!tags) return null;
 
-
+    // fonction pour modifier les tags en fonction du select multiple
     const handleTagChange = (e) => {
         let value = Array.from(e.target.selectedOptions, option => option.value);
         setTag(value);
     }
 
+    // fonction submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 
         let categ = null;
         let postTag = [];
 
+        // Récupération de la catégorie
         for (let i = 0; i < categories.length; i++) {
             if(categorie.current.value === categories[i]._id) {
                 categ = categories[i];
             }
         }
 
+        // Récupération des tags
         for (let i = 0; i < tags.length; i++) {
             for (let j = 0; j < tag.length; j++) {
                 if(tags[i]._id === tag[j]) {
@@ -55,6 +61,7 @@ export default function Create() {
             }
         }
 
+        // Ajouter un article
         axios
         .post("http://localhost:3001/api/articles", {
             "titre": titre.current.value,

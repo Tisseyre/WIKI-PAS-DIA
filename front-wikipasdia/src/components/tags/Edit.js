@@ -10,11 +10,12 @@ export default function Edit() {
 
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Redirection si l'utilisateur n'est pas connecté
     if(!isConnected) {
         navigate('/login');
     }
 
-
+    // Récupération du tag demandé
     useEffect(() => {
         axios.get("http://localhost:3001/api/tags/"+params.id).then((response) => {
             setTag(response.data);
@@ -24,6 +25,7 @@ export default function Edit() {
 
     if (!tag) return null;
 
+    // Fonction submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 

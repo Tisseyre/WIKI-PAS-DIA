@@ -86,8 +86,9 @@
 > - Changer la version d'un article
 ```
 > Accès via le bouton "Changer de version" sur la page d'un article
-> Le bouton affiche une liste de version associées à l'article choisi.
+> Le bouton affiche une liste des versions associées à l'article choisi
 > Le changement de version se fait automatiquement lors du clic sur la version
+> Rappel : Lors de la création et la modification d'un article, une version se créer automatiquement, celle-ci est accessible dans la liste des versions
 ```
 
 > - Recherche par tag

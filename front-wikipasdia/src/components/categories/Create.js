@@ -8,10 +8,12 @@ export default function Create() {
 
     var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
+    // Redirection si l'utilisateur n'est pas conecté
     if(!isConnected) {
         navigate('/login');
     }
 
+    // Fonction de submit du formulaire
     const handleSubmit = function (e) {
         e.preventDefault();
 
