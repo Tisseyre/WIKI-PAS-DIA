@@ -16,6 +16,10 @@
 > - la base de donnée est maintenant initialisé vous pouvez tester toutes les requêtes disponible (24) dans les différents dossiers
 > - pour initialiser rapidement la base de données sans passer par insomnia utiliser l'url suivant dans un navigateur --> localhost:3001/api/setup 
 
+### Précisions sur la gestion des versions
+
+> La gestion des versions de l'historique d'un article se fait automatiquement côté serveur à l'ajout et a la modification d'un article.
+
 ## Routes gérées par l'api et description
 
 ### Setup 
