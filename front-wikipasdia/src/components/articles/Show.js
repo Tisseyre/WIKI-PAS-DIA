@@ -6,6 +6,7 @@ export default function Show() {
     const params = useParams()
     const [article, setArticle] = useState(null);
     const [isCollapsed, setIsCollapsed] = useState(true);
+    var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/articles/"+params.id).then((response) => {
@@ -27,9 +28,9 @@ export default function Show() {
         <div>
             <div className='row'>
                 <div className='col-md-8'>
-                    <div className='d-flex justify-content-end'>
-                        <Link to={ "/articles/"+params.id+"/edit" } className='btn btn-primary'>Modifier</Link>
-                        <button className='btn btn-secondary mx-2' onClick={ () => { setIsCollapsed(!isCollapsed) } } >Changer de version</button>
+                    <div className="d-flex justify-content-end">
+                        <Link to={ "/articles/"+params.id+"/edit" } className={`${isConnected === true ? '' : 'collapse'} btn btn-primary`}>Modifier</Link>
+                        <button className={`${isConnected === true ? '' : 'collapse'} btn btn-secondary mx-2`} onClick={ () => { setIsCollapsed(!isCollapsed) } } >Changer de version</button>
                     </div>
                     <div className='d-flex justify-content-end'>
                         <div className={`${isCollapsed ? 'collapse' : ''}`}>

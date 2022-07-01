@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function TopMenu() {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  var isConnected = (sessionStorage.getItem("isConnected") === 'true');
+
+  const logout = () => {
+    sessionStorage.setItem("isConnected", "false");
+    navigate('/');
+  }
 
   return (
     <div>
@@ -14,7 +22,8 @@ export default function TopMenu() {
                   <a href={"/articlesByTitre/"+search} className='btn btn-primary'>Rechercher</a>
               </div>
               <div className='navbar-nav'>
-                  <a href="/" className='nav-link'>Connexion</a>
+                <Link to="/login" className={`${isConnected == true ? 'collapse' : ''} nav-link`}>Connexion</Link>
+                <span onClick={logout} className={`${isConnected == true ? '' : 'collapse'} nav-link`} style={{ cursor:'pointer' }}>Déconnecter</span>
               </div>
           </div>
       </nav>

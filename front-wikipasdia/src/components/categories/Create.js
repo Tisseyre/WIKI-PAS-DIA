@@ -6,6 +6,12 @@ export default function Create() {
     const libelle = useRef();
     const navigate = useNavigate();
 
+    var isConnected = (sessionStorage.getItem("isConnected") === 'true');
+
+    if(!isConnected) {
+        navigate('/login');
+    }
+
     const handleSubmit = function (e) {
         e.preventDefault();
 

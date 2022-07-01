@@ -8,9 +8,6 @@ export default function Edit() {
     const [imgName, setImgName] = useState();
     const [imgURL, setImgURL] = useState();
 
-    //const contenu = useRef();
-    //const imgName = useRef();
-    //const imgURL = useRef();
     const categorie = useRef();
     const navigate = useNavigate();
 

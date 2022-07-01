@@ -6,7 +6,13 @@ export default function Edit() {
     const [categorie, setCategorie] = useState(null);
     const [libelle, setLibelle] = useState();
     const navigate = useNavigate();
-    const params = useParams()
+    const params = useParams();
+
+    var isConnected = (sessionStorage.getItem("isConnected") === 'true');
+
+    if(!isConnected) {
+        navigate('/login');
+    }
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/categories/"+params.id).then((response) => {

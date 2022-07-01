@@ -6,7 +6,13 @@ export default function Edit() {
     const [tag, setTag] = useState();
     const [libelle, setLibelle] = useState();
     const navigate = useNavigate();
-    const params = useParams()
+    const params = useParams();
+
+    var isConnected = (sessionStorage.getItem("isConnected") === 'true');
+
+    if(!isConnected) {
+        navigate('/login');
+    }
 
 
     useEffect(() => {

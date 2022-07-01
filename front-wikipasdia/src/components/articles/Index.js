@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 export default function Index() {
     const [articles, setArticle] = useState(null);
+    var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/articles").then((response) => {
@@ -16,13 +17,13 @@ export default function Index() {
 
     return (
         <div>
-            <Link to="/articles/create" className='btn btn-primary'>Ajouter un article</Link>
+            <Link to="/articles/create" className={`${isConnected === true ? '' : 'collapse'} btn btn-primary`}>Ajouter un article</Link>
             <h1 className='text-center my-4'>Les articles</h1>
             <div className='d-flex flex-wrap'>
                 {
                     articles.map((item, index) => {
                         return (
-                            <Article item={item} key={index} linkTo={'/articles/'+item._id} linkNav={'/articles'} />
+                            <Article item={item} key={index} linkTo={'/articles/'+item._id} />
                         )
                     })
                 }

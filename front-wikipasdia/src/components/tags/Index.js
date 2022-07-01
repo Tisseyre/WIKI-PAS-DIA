@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 export default function Index() {
     const [tags, setTags] = useState(null);
+    var isConnected = (sessionStorage.getItem("isConnected") === 'true');
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/tags").then((response) => {
@@ -16,13 +17,13 @@ export default function Index() {
 
     return (
         <div>
-            <Link to="/tags/create" className='btn btn-primary'>Ajouter un tag</Link>
+            <Link to="/tags/create" className={`${isConnected === true ? '' : 'collapse'} btn btn-primary`}>Ajouter un tag</Link>
             <h1 className='text-center my-4'>Les tags</h1>
             <div className='d-flex flex-wrap'>
                 {
                     tags.map((item, index) => {
                         return (
-                            <Tag item={item} key={index} linkTo={'/tags/'+item._id+'/edit'} />
+                            <Tag item={item} key={index} />
                         )
                     })
                 }

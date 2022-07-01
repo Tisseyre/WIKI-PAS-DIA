@@ -20,6 +20,9 @@ import CategorieIndex from "./components/categories/Index";
 import CategorieCreate from "./components/categories/Create";
 import CategorieEdit from "./components/categories/Edit";
 
+import Connexion from "./components/connexion/Connexion";
+import Inscription from "./components/connexion/Inscription";
+
 // Navbar
 import TopMenu from "./components/layout/TopMenu";
 import LeftMenu from "./components/layout/LeftMenu";
@@ -29,9 +32,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
-  const [utilisateur, setUtilisateur] = useState("test utilisateur");
-
-  console.log(utilisateur);
   return (
     <div>
       <TopMenu />
@@ -57,6 +57,10 @@ function App() {
             <Route path="/categories" element={<CategorieIndex />} />
             <Route path="/categories/create" element={<CategorieCreate />} />
             <Route path="/categories/:id/edit" element={<CategorieEdit />} />
+
+            <Route path="/login" element={<Connexion />} />
+            <Route path="/register" element={<Inscription />} />
+            
           </Routes>
         </div>
       </div>

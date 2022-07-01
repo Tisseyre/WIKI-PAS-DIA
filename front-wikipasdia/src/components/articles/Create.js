@@ -14,6 +14,8 @@ export default function Create() {
 
     const [categories, setCategories] = useState(null);
     const [tags, setTags] = useState(null);
+    var user = sessionStorage.getItem("user");
+    user = JSON.parse(user);
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/categories").then((response) => {
@@ -58,8 +60,8 @@ export default function Create() {
             "titre": titre.current.value,
             "contenu": contenu.current.value,
             "auteur": {
-                "nom": "nom 3",
-                "prenom": "prenom 3"
+                "nom": user.nom,
+                "prenom": user.prenom
             },
             "image": {
                 "nom": imgName.current.value,
@@ -137,7 +139,6 @@ export default function Create() {
                     </div>
                 </div>
                 <button className='btn btn-primary'>Ajouter</button>
-                <input type="reset" value="Annuler" className='btn btn-secondary mx-3' />
             </form>
         </div>
     );
