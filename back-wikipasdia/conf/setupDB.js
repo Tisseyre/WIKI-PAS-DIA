@@ -103,8 +103,8 @@ module.exports = function (client, dbname){
                                                                         },
                                                                         {
                                                                             prenom : "Vincent",
-                                                                            nom : "Tysseyre",
-                                                                            email : "vincent.tysseyre@andilcampus.fr",
+                                                                            nom : "Tisseyre",
+                                                                            email : "vincent.tisseyre@andilcampus.fr",
                                                                             password : "password"
                                                                         }
                                                                     ]);

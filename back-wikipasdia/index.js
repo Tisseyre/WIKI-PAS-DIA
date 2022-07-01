@@ -528,7 +528,10 @@ client.connect( (err, client) => {
                 }else {
                     res.json({
                         connexion : true,
-                        msg : "connexion réussie"
+                        msg : "connexion réussie",
+                        nom : result.nom,
+                        prenom : result.prenom,
+                        email : result.email
                     })
                 }
             })

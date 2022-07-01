@@ -1,4 +1,4 @@
-# WIKI-PAS-DIA -- Par Thibault LOEUILLET et Vincent TYSSEYRE
+# WIKI-PAS-DIA -- Par Thibault LOEUILLET et Vincent TISSEYRE
 ## Descriptif général
 ### Contexte du projet
 
