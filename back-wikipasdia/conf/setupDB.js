@@ -9,7 +9,10 @@ const loremText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliq
     "Proin pellentesque, turpis sed luctus commodo, eros lectus rutrum sapien, a eleifend purus diam sed justo. Curabitur nec nibh purus. Duis justo magna, pulvinar quis varius quis, ornare id mauris. Sed at leo condimentum, viverra dui vitae, luctus ante. Nunc molestie, nibh sit amet tincidunt venenatis, massa nunc commodo sem, eget faucibus odio lacus eget diam. Etiam urna nisi, imperdiet sit amet metus ut, tincidunt eleifend dolor. Aenean feugiat velit vel nisi euismod, sed volutpat sapien sodales. Morbi nec urna lacus. Sed hendrerit cursus leo ut vulputate.\n" +
     "\n" +
     "In porta nisi quis velit pretium placerat nec in dolor. Suspendisse maximus orci ut facilisis convallis. Nulla arcu erat, pulvinar a purus in, scelerisque mollis dolor. Proin a tincidunt orci, at finibus dolor. Aliquam tincidunt molestie odio quis cursus. Mauris et ante vel dui tempor blandit eu quis dui. Suspendisse dignissim ligula non interdum consectetur. Proin sed tortor dui. Duis vitae sapien cursus, lobortis enim vitae, gravida nibh. Integer sagittis porttitor eros vitae pretium. Nulla congue blandit nunc, nec consectetur ante congue vitae.";
-const defaultUrlImg = "https://upload.wikimedia.org/wikipedia/commons/6/6b/Picture_icon_BLACK.svg";
+const defaultUrlImg = {
+    nom : "image par default",
+    url : "https://upload.wikimedia.org/wikipedia/commons/6/6b/Picture_icon_BLACK.svg"
+};
 
 module.exports = function (client, dbname){
 
