@@ -10,6 +10,7 @@ export default function TopMenu() {
   const logout = () => {
     sessionStorage.setItem("isConnected", "false");
     navigate('/');
+    window.location.reload();
   }
 
   return (

@@ -25,6 +25,7 @@ export default function Create() {
                 }));
 
                 navigate('/');
+                window.location.reload();
             }
         });
     }
