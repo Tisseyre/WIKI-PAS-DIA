@@ -1,4 +1,4 @@
-# WIKI-PAS-DIA (Back) -- Par Vincent TISSEYRE
+# WIKI-PAS-DIA (Front) -- Par Vincent TISSEYRE
 
 ## Installation du projet :
 
@@ -7,6 +7,11 @@
 > - lancer la commande `npm start`
 > - Le navigateur se lancera automatiquement sur le port 3000 (attention à bien avoir lancé le serveur back avant)
 > - Cliquer sur le bouton "Initialiser la base de données" dans le menu de gauche
+> - Pour pouvoir effectuer les opérations de modification / ajout / supression une connexion est nécessaire voici des identifiants 
+> - après initialisation de la base de données --> 
+> - email : email@test.fr
+> - password : password
+> - Sinon vous pouvez aussi vous créer un compte
 
 ## Routes
 
@@ -60,21 +65,21 @@
 
 > - Création d'un article
 ```
-> Accès suite à la connexion de l'utilisation
+> Accès suite à la connexion de l'utilisateur
 > Accès via le bouton "Ajouter un article" sur le menu de gauche
 > Accès via le menu "Ajouter un article" sur la page de la liste des articles
 ```
 
 > - Modification d'un article
 ```
-> Accès suite à la connexion de l'utilisation
+> Accès suite à la connexion de l'utilisateur
 > Accès via l'icon de modification d'un article sur la page de la liste des articles
 > Accès via le bouton "Modifier" sur la page d'un article
 ```
 
 > - Suppression d'un article
 ```
-> Accès suite à la connexion de l'utilisation
+> Accès suite à la connexion de l'utilisateur
 > Accès via l'icon de suppression d'un article sur la page de la liste des articles
 ```
 
