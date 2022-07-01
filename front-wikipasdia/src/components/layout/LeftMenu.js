@@ -14,6 +14,13 @@ export default function LeftMenu() {
 
   if (!tags) return null;
 
+  const setupBDD = () => {
+    axios.get("http://localhost:3001/api/setup").then((response) => {
+        alert(response.data.msg);
+        window.location.reload();
+    });
+  }
+
   return (
     <div>
       <nav className ="navbar navbar-light bg-light shadow-sm">
@@ -49,6 +56,9 @@ export default function LeftMenu() {
                   })
               }
             </ul>
+          </li>
+          <li>
+            <button onClick={setupBDD} className='btn btn-primary'>Initialiser la base de données</button>
           </li>
         </ul>
       </nav>

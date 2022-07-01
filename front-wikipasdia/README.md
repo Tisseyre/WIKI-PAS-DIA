@@ -1,70 +1,169 @@
-# Getting Started with Create React App
+# WIKI-PAS-DIA (Back) -- Par Vincent TISSEYRE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation du projet :
 
-## Available Scripts
+> - Ouvrez un terminal à la racine du dossier front-wikipasdia
+> - lancer la commande `npm install`
+> - lancer la commande `npm start`
+> - Le navigateur se lancera automatiquement sur le port 3000 (attention à bien avoir lancé le serveur back avant)
+> - Cliquer sur le bouton "Initialiser la base de données" dans le menu de gauche
 
-In the project directory, you can run:
+## Routes
 
-### `npm start`
+### Principale
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> - `/` : Page principale
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Article
 
-### `npm test`
+#### Article CRUD
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> - `/articles` : Liste des articles
+> - `/articles/create` : Création d'un article
+> - `/articles/:id/edit` : Modification d'un article
+> - `/articles/:id` : Affichage de la page d'un article
 
-### `npm run build`
+#### Article Recherche
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> - `/categorie/:id/articles` : Recherche des articles par catégorie
+> - `/tag/:id/articles` : Recherche des articles par tag
+> - `/articlesByTitre/:titre` : Recherche des articles en fonction de son titre
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Tag
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Tag CRUD
 
-### `npm run eject`
+> - `/tags` : Liste des tags
+> - `/tags/create` : Création d'un tag
+> - `/tags/:id/edit` : Modification d'un tag
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Categorie
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Categorie CRUD
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> - `/categories` : Liste des catégories
+> - `/categories/create` : Création d'une catégorie
+> - `/categories/:id/edit` : Modification d'une catégorie
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Connexion
 
-## Learn More
+> - `/login` : Affichage de la page de connexion
+> - `/register` : Affichage de la page d'inscription
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Fonctionnalités
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Articles
+> - Liste des articles
+```
+> Accès via le bouton "Articles" du menu de gauche
+```
 
-### Code Splitting
+> - Création d'un article
+```
+> Accès suite à la connexion de l'utilisation
+> Accès via le bouton "Ajouter un article" sur le menu de gauche
+> Accès via le menu "Ajouter un article" sur la page de la liste des articles
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+> - Modification d'un article
+```
+> Accès suite à la connexion de l'utilisation
+> Accès via l'icon de modification d'un article sur la page de la liste des articles
+> Accès via le bouton "Modifier" sur la page d'un article
+```
 
-### Analyzing the Bundle Size
+> - Suppression d'un article
+```
+> Accès suite à la connexion de l'utilisation
+> Accès via l'icon de suppression d'un article sur la page de la liste des articles
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+> - Affichage de la page d'un article
+```
+> Accès via le clic d'un article sur la page de la liste des articles
+```
 
-### Making a Progressive Web App
+> - Changer la version d'un article
+```
+> Accès via le bouton "Changer de version" sur la page d'un article
+> Le bouton affiche une liste de version associées à l'article choisi.
+> Le changement de version se fait automatiquement lors du clic sur la version
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+> - Recherche par tag
+```
+> Accès via le clic d'un tag sur le menu de gauche
+> Accès via le clic d'un tag sur la page de liste des tags
+> Accès via le clic d'un tag sur la page d'un article
+```
 
-### Advanced Configuration
+> - Recherche par catégorie
+```
+> Accès via le clic d'une catégorie sur la page de liste des catégories
+> Accès via le clic d'une catégorie sur la page principale
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+> - Recherche par titre
+```
+> Accès via la recherche d'un titre d'article dans la barre de recherche du menu du haut
+```
 
-### Deployment
+- Tags
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+> - Liste des tags
+```
+> Accès via le clic du bouton "Tags" du menu de gauche
+```
 
-### `npm run build` fails to minify
+> - Création d'un tag
+```
+> Accès suite à la connexion d'un utilisateur
+> Accès via le bouton "Ajouter un tag" sur la page de la liste des tags
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> - Modification d'un tag
+```
+> Accès suite à la connexion d'un utilisateur
+> Accès via l'icon de modification d'un tag sur la page de la liste des tags
+```
+
+> - Suppression d'un tag
+```
+> Accès suite à la connexion d'un utilisateur
+> Accès via l'icon de suppression d'un tag sur la page de la liste des tags
+```
+
+- Catégories
+
+> - Liste des catégories
+```
+> Accès via le clic du bouton "Catégories" du menu de gauche
+```
+
+> - Création d'une catégorie
+```
+> Accès suite à la connexion d'un utilisateur
+> Accès via le bouton "Ajouter une catégorie" sur la page de la liste des catégories
+```
+
+> - Modification d'une catégorie
+```
+> Accès suite à la connexion d'un utilisateur
+> Accès via l'icon de modification d'une catégorie sur la page de la liste des catégories
+```
+
+> - Suppression d'une catégorie
+```
+> Accès suite à la connexion d'un utilisateur
+> Accès via l'icon de suppression d'une catégorie sur la page de la liste des catégories
+```
+
+- Connexion/Déconnexion
+```
+> Accès via le bouton de connexion/déconnexion sur le menu du haut
+```
+
+- Inscription
+```
+> Accès via le bouton d'inscription sur la page de connexion
+```
